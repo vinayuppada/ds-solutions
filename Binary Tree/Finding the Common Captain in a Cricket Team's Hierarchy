@@ -1,0 +1,50 @@
+from collections import deque
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+        
+def binary_tree(l):
+    if not l or l[0]=="null":
+        return None
+    root=Node(int(l[0]))
+    q=deque([root])
+    i=1
+    while(i<len(l)):
+        new_node=q.popleft()
+        if(i<len(l) and l[i]!='null' ):
+            new_node.left=Node(int(l[i]))
+            q.append(new_node.left)
+        i+=1
+        if(i<len(l) and l[i]!='null'):
+            new_node.right=Node(int(l[i]))
+            q.append(new_node.right)
+        i+=1
+    return root
+
+def solve(root,a,b):
+        if root is None:
+            return None
+        if root.val==a or root.val==b:
+            return root
+        l=solve(root.left,a,b)
+        r=solve(root.right,a,b)
+        if l and r :
+            return root
+        return l or r
+        
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(str,input().split()))
+    a,b=map(int,input().split())
+    root=binary_tree(l)
+    ans=solve(root,a,b)
+    if ans:
+        print(ans.val)
+    else:
+        print(-1)
+    
+    
+    
