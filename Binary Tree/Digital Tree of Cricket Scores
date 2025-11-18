@@ -1,0 +1,38 @@
+from collections import deque
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+def binary(l):
+    root=Node(int(l[0]))
+    q=deque([root])
+    i=1
+    while(i<len(l)):
+        cur=q.popleft()
+        if (i<len(l) and l[i]!='null'):
+            cur.left=Node(int(l[i]))
+            q.append(cur.left)
+        i+=1
+        if (i<len(l) and l[i]!='null'):
+            cur.right=Node(int(l[i]))
+            q.append(cur.right)
+        i+=1
+    return root
+def solve(head,num):
+    if head is None:
+        return 0
+    num=num*10+head.val
+    if head.left is None and head.right is None:
+        return num
+    return solve(head.left,num)+solve(head.right,num)
+    
+    
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(str,input().split()))
+    head=binary(l)
+    
+    print(solve(head,0))
+        
