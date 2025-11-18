@@ -1,0 +1,48 @@
+from collections import deque
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+        
+def bt(l):
+    if not l or l[0]=='null':
+        return None
+    root=Node(l[0])
+    q=deque([root])
+    i=1
+    while(i<len(l)):
+        cur=q.popleft()
+        if i<len(l) and l[i]!='null':
+            cur.left=Node(int(l[i]))
+            q.append(cur.left)
+        i+=1
+        if i<len(l) and l[i]!='null':
+            cur.right=Node(int(l[i]))
+            q.append(cur.right)
+        i+=1
+    return root
+
+def solve(head):
+    if head is None:
+        return 0
+    q=deque([head])
+    total=0
+    while q:
+        cur=q.popleft()
+        if cur.left:
+            if cur.left.left is None and cur.left.right is None:
+                total+=cur.left.val
+            else:
+                q.append(cur.left)
+        if cur.right:
+            q.append(cur.right)
+    return total
+             
+    
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(str,input().split()))
+    head=bt(l)
+    print(solve(head))
