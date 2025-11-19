@@ -1,0 +1,48 @@
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+def bstree(root,newval):
+    if root is None:
+        return Node(newval)
+    if newval<root.val:
+        root.left=bstree(root.left,newval)
+    else:
+        root.right=bstree(root.right,newval)
+    return root
+
+def solve(root,t):
+    if root is None:
+        return False,None
+    if t==root.val:
+        return True,root
+        
+    if t<root.val:
+        return solve(root.left,t)
+    else:
+        return solve(root.right,t)
+   
+def inorder(root):
+    if root:
+        inorder(root.left)
+        print(root.val,end=" ")
+        inorder(root.right)
+    
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(int,input().split()))
+    t=int(input())
+    root=None
+    for newval in l:
+        root=bstree(root,newval)
+    boo,r=solve(root,t)
+    if boo==True:
+        print(f"Book found! Subtree rooted at {t}:")
+        inorder(r)
+    else:
+        print("Book not found")
+        
+        
+    
