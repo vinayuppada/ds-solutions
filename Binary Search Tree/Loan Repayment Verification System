@@ -1,0 +1,36 @@
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+def bst(root,newval):
+    if not root:
+        return Node(newval)
+    if(newval<root.val):
+        root.left=bst(root.left,newval)
+    else:
+        root.right=bst(root.right,newval)
+    return root
+def solve(root,t,s):
+    if root is None:
+        return False
+    if root.left is None and root.right is None:
+        return s+root.val==t
+    
+    return solve(root.left,t,s+root.val) or solve(root.right,t,s+root.val)
+
+    
+
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(int,input().split()))
+    t=int(input())
+    root=None
+    for newval in l:
+        root=bst(root,newval)
+    if (solve(root,t,0)):
+        print('true')
+    else: 
+        print('false')
+    
