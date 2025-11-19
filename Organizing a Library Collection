@@ -1,0 +1,33 @@
+
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+        
+def bstree(root,newval):
+    if root is None:
+        return Node(newval)
+    if newval<root.val:
+        root.left=bstree(root.left,newval)
+    else :
+        root.right=bstree(root.right,newval)
+    return root 
+def solve(root):
+    if root:
+        solve(root.left)
+        print(root.val,end=" ")
+        solve(root.right)
+    
+    
+    
+    
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(int,input().split()))
+    
+    root=None
+    for newval in l:
+        root=bstree(root,newval)
+    solve(root)
+    
