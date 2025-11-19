@@ -1,0 +1,41 @@
+class Node:
+    def __init__(self,d):
+        self.val=d
+        self.left=None
+        self.right=None
+def bst(root,newval):
+    if root is None:
+        return Node(newval)
+    if newval<root.val:
+        root.left=bst(root.left,newval)
+    else:
+        root.right=bst(root.right,newval)
+    return root
+def solve(root,tl):
+    
+    if root is None:
+        return tl
+    if root:
+        solve(root.left,tl)
+        tl.append(root.val)
+        solve(root.right,tl)
+    return tl
+    
+
+
+if __name__=="__main__":
+    n=int(input())
+    l=list(map(int,input().split()))
+    t=int(input())
+    root=None
+    for newval in l:
+        root=bst(root,newval)
+    tl=[]
+    tl=solve(root,tl)
+    for i in range (len(tl)):
+        if tl[i]==t:
+            if i==len(tl)-1:
+                print("No Inorder Successor")
+            else:
+                print(tl[i+1])
+    
